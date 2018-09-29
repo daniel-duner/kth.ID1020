@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/danielduner/Dropbox/Programmeringsprojekt/C-programming/Uppgift 1 - ingenjörsmetodik/untitled/Recursive.c
+stdio.h
+-
+

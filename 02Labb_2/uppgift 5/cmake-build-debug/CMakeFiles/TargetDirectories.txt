@@ -1,0 +1,3 @@
+C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/Lab2/uppgift 5/cmake-build-debug/CMakeFiles/uppgift_5.dir
+C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/Lab2/uppgift 5/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/Lab2/uppgift 5/cmake-build-debug/CMakeFiles/rebuild_cache.dir

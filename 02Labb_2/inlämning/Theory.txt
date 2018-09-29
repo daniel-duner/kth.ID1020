@@ -1,0 +1,37 @@
+﻿Theory
+8.
+1 3 4 8 9 
+jämför 4 & 8
+jämför 8 & 9
+jämför 5 & 9, 
+flyttar 9 till 5:s plats
+jämför 5 & 8
+flyttar 8 till 9:s tidigare plats
+jämför 4 och 5 
+flyttar fem till 8:s tidigare plats
+
+5 comparisons
+3 swaps
+
+9.
+(if i must be larger than 0)
+Insertion sort skulle det kunna ha vara där i är mellan 1 och 3
+Kan ej varit selection sort, eftersom att det
+Det skulle kunna ha varit shellsort där i är mellan 1 och 5 och skulle kunna vara h=5 sorterad
+
+10.
+a) 
+Om alla nycklar är samma alltså [1],[1],[1],[1],[1],..,[1]n
+Insertion (n-1) jämförelser 0 swaps
+Selection (n-1) jämförelser 0 swaps
+Samma 
+b)
+Om alla element är sorterade uppstår samma sak [1],[2],[3],[4],[5],..,[n]n
+Insertion (n-1) jämförelser 0 swaps
+Selection (n-1) jämförelser 0 swaps
+Samma
+c) selection sort har färre swaps O(N), medan insertion har O(N^2)
+
+11.
+H2 sorterad, men skulle kunna vara inne på h1
+
