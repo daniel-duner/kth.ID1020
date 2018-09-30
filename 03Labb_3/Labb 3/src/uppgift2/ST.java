@@ -3,6 +3,8 @@ package uppgift2;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -193,12 +195,19 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 	 * and how long time the search took in ms.
 	 * @param args
 	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException 
 	 */
 	@SuppressWarnings("resource")
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		Scanner sc;
 		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
+		PrintWriter writer = new PrintWriter("src/resources/text.txt","UTF-8");
 		int minlen = 1;
+		while(sc.hasNext()) {
+			String word = sc.next().toLowerCase();
+			writer.print(word+" ");
+		}
+		sc = new Scanner(new FileReader("src/resources/text.txt"));
 		StopWatch sw = new StopWatch();
 		// key-length cutoff
 		ST<String, Integer> st = new ST<String, Integer>(10);
@@ -217,7 +226,19 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 		sw.stop();
 		String max = st.getMax("max", 0);
 		System.out.println("The most frequent word is \""+max + "\" and was used " + st.get(max)+" times");
-
+		
+//		sc = new Scanner(new FileReader("src/resources/Text.txt"));
+//		for (int i = 0; i < 1000; i++) {
+//			String key = sc.next();
+//			
+//			if(st.contains(key)) {
+//				st.put(key, (st.get(key).intValue()+1));
+//			} else {				
+//				st.put(key, 1);
+//			}
+//		}
+//		System.out.println(st.ToString());
+	}
 	}
 
 //	@SuppressWarnings({ "resource", "unchecked", "deprecation" })
@@ -225,7 +246,7 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 //
 //		ST<String, Integer> st = new ST<String, Integer>(10);
 //		Scanner sc;
-//		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
+//		sc = new Scanner(new FileReader("src/resources/Text.txt"));
 //		for (int i = 0; i < 1000; i++) {
 //			String key = sc.next();
 //			
@@ -237,6 +258,6 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 //		}
 //		System.out.println(st.ToString());
 //	}
-//	
+	
 
-}
+//}
