@@ -1,3 +1,0 @@
-C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/03Labb_3/uppgift_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/03Labb_3/uppgift_1/cmake-build-debug/CMakeFiles/lab3.dir
-C:/Users/danie_zol39/Dropbox/05KTH/03Algoritmer och datastrukturer/kth.ID1020/03Labb_3/uppgift_1/cmake-build-debug/CMakeFiles/edit_cache.dir

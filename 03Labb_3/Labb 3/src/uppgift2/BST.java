@@ -7,10 +7,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import uppgift3.PairDTO;
-import uppgift3.myStack;
 
 /**
- * Symbol table implemented in a Binary search tree
+ * README
+ * The program tests insert and get with decided N;
  * 
  * @author danielduner
  *
@@ -22,38 +22,38 @@ public class BST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 	private Value maxV;
 	private Key maxK;
 	private PairDTO<Key, Value> minV;
-	private myStack<Key, Value> maxStack = new myStack<Key, Value>();
 	private boolean first = true;
 	
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		Scanner sc;
-		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
 		int minlen = 1;
-		PrintWriter writer = new PrintWriter("src/resources/text.txt","UTF-8");
-		while(sc.hasNext()) {
-			String word = sc.next().toLowerCase();
-			writer.print(word+" ");
-		}
-		sc = new Scanner(new FileReader("src/resources/text.txt"));
+		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
 		StopWatch sw = new StopWatch();
 		// key-length cutoff
 		BST<String, Integer> st = new BST<String, Integer>();
-
+		int N = 100000;
 		sw.start();
-		while (sc.hasNext()) { // Build symbol table and count frequencies.
+//		while (sc.hasNext()) { // Build symbol table and count frequencies.
+		while (N>0) {
 			String word = sc.next();
+//			String word = sc.next().toLowerCase();
 			if (word.length() < minlen)
 				continue; // Ignore short keys.
 			if (!st.contains(word))
-				st.put(word, new Integer(1));
+				st.put(word, 1);
 			else
-				st.put(word, new Integer(st.get(word) + 1));
+				st.put(word, st.get(word) + 1);
+			N--;
 		}
+		System.out.println("Insert");
+		sw.stop("m");
+		sw.start();
+		st.get("the");
+		System.out.println("get \"the\"");
+		sw.stop("n");
 		// Find a key with the highest frequency count.
-//		String max = st.getMax();
-		String max = st.getMax(5);
-		sw.stop();
+		String max = st.getMax();
 		System.out.println(max);
 	}
 	/**
@@ -219,64 +219,7 @@ public class BST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 		}
 	}
 	
-	/**
-	 * returns the n most frequently used word
-	 * @param n
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public String getMax(int n) {
-		setMin();
-		this.maxV = (Value) minV.getValue();
-		this.maxK = (Key) minV.getKey();
-		traverse(root);
-		maxStack.push(this.maxK, this.maxV);
-		for(int i = 0; i < n-1;i++) {
-			this.maxV = (Value) minV.getValue();
-			this.maxK = (Key) minV.getKey();
-			traverseComp(root);
-			maxStack.push(this.maxK, this.maxV);
-		}
-		return maxStack.toString();
-		
-	}
-	
-	/**
-	 * Traverse nodes and saves the maximum value, that is smaller or equal to the last pair added 
-	 * the stack of maximum values
-	 * @param current
-	 */
-	@SuppressWarnings("unchecked")
-	private void traverseComp(Node current) {
-		if (current.lo != null) {
-			if ((current.value.compareTo(maxV) > 0) && maxComp(current.key, current.value)) {
-				this.maxV = current.value;
-				this.maxK = current.key;
-			}
-			traverseComp(current.lo);
-		}
-		if (current.hi != null) {
-			if ((current.value.compareTo(maxV) > 0) && maxComp(current.key, current.value)) {
-				this.maxV = current.value;
-				this.maxK = current.key;
-			}
-			traverseComp(current.hi);
-		}
-	}
-	/**
-	 * Compares keys and values with the top pair in the maxStack, if the key is not the same
-	 * and the value is smaller it will return true, else it will return false
-	 * @param key
-	 * @param value
-	 * @return
-	 */
-	private boolean maxComp(Key key, Value value) {
-		int cmpV = value.compareTo((Value) maxStack.peekValue());
-		if(maxStack.cmp(key) && (cmpV <= 0)) {
-			return true;
-		}
-		return false;
-	}
+
 
 }
 

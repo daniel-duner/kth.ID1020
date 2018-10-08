@@ -5,25 +5,29 @@ import java.util.ArrayList;
 import org.omg.CORBA.Current;
 
 import uppgift3.PairDTO;
-
+/**
+ * README
+ * Symbol table implemented in a binary search tree
+ * @author danielduner
+ *
+ * @param <Key>
+ */
 public class TextFindST<Key extends Comparable<Key>> {
-	private TextFindStack<Integer> valStack = new TextFindStack<Integer>();
+//	private TextFindStack<Integer> valStack = new TextFindStack<Integer>();
 	private Node root;
 	boolean notInList = true;
 
 	private class Node {
-		Node next;
-		int length;
+		private TextFindStack<Integer> vals = new TextFindStack<Integer>();
 		private Key key;
-		private Integer val;
 		private int N;
 		private Node hi;
 		private Node lo;
 
 		public Node(Key key, Integer val, int N) {
 			this.key = key;
-			this.val = val;
 			this.N = N;
+			setVal(val);
 		}
 
 		public int size(Node node) {
@@ -33,24 +37,34 @@ public class TextFindST<Key extends Comparable<Key>> {
 			return 0;
 		}
 
-		public Integer getValue() {
-			return val;
+		public TextFindStack<Integer> getVal() {
+			return vals;
 		}
 
 		public Key getKey() {
 			return key;
 		}
+		public void setVal(Integer val) {
+			vals.push(val);
 	}
-	public Integer get(Key key) {
+	}
+	
+	/**
+	 * Returns the Integer for searched key
+	 */
+	public TextFindStack<Integer> get(Key key) {
+		
+		//Compares the key to the root
 		if (!isEmpty()) {
 			if (key.compareTo(root.key) == 0) {
-				return root.val;
+				return root.vals;
 			}
+			
 			Node current = root;
 			while (current != null) {
 				int cmp = key.compareTo(current.key);
 				if (cmp == 0) {
-					return current.val;
+					return current.vals;
 				} else if (cmp < 0) {
 					if (current.lo == null) {
 						return null;
@@ -66,6 +80,7 @@ public class TextFindST<Key extends Comparable<Key>> {
 		}
 		return null;
 	}
+	
 	public boolean contains(Key key) {
 		return get(key) != null;
 	}
@@ -79,6 +94,7 @@ public class TextFindST<Key extends Comparable<Key>> {
 		root = null;
 	}
 
+	@SuppressWarnings("unused")
 	public void put(Key key, Integer value) {
 		if (isEmpty()) {
 			root = new Node(key, value, 1);
@@ -88,75 +104,37 @@ public class TextFindST<Key extends Comparable<Key>> {
 	}
 	/**
 	 * add another key to the list, if key doesn't exists, adds new node to the subtree
-	 * @param key
-	 * @param val
-	 * @param root
-	 * @return
 	 */
 	public Node put(Key key, Integer val, Node root) {
-		
+		//If root is == null returns new node;
 		if (root == null) {
 			return new Node(key, val, 1);
 		}
-
 		int cmp = key.compareTo(root.key);
+		//If key is larger than current.key go higher
 		if (cmp > 0) {
 			root.hi = put(key, val, root.hi);
 		}
-
+		//If key is smaller than current.key go lower
 		else if (cmp < 0) {
 			root.lo = put(key, val, root.lo);
 		}
-
+		//if key is the same instead add to queue
 		else {
-			root.next = put(key, val, root.next);
+			root.setVal(val);
 		}
 
 		root.N = root.size(root.hi) + root.size(root.lo) + 1;
 		return root;
 	}
 
-	public Integer[] getWordIndices(Key key) {
+	public TextFindStack<Integer> getWordIndices(Key key) {
 		if (isEmpty()) {
 			return null;
 		}
-		traverse(key,root);
-		return stackToArray();
-	}
-
-	@SuppressWarnings("unchecked")
-	private void traverse(Key key, Node root) {
-		if(root.getKey() == "The") {
-			System.out.println("key");
+		return get(key);
 		}
-		if (root.lo != null) {
-			if(key.compareTo(root.getKey()) == 0){
-//				System.out.println("key"+ key +" currentKey: "+ current.getKey());
-				valStack.push(root.getValue());
-			}
-			traverse(key,root.lo);
-		}
-
-		if (root.hi != null) {
-			if(key.compareTo(root.getKey()) == 0){
-//				System.out.println(current.getValue());
-				valStack.push(root.getValue());
-			}
-			traverse(key,root.hi);
-		}
-	}
-	
-	private Integer[] stackToArray() {
-		uppgift6.TextFindStack.Node current = valStack.head;
-		Integer[] indices = new Integer[valStack.size];
-		int i = 0;
-		while(valStack.head != null) {
-			indices[i] = valStack.pop();
-			System.out.println(" : 0"+indices[i]);
-			i++;
-		}
-		return indices;
 		
 	}
 
-}
+

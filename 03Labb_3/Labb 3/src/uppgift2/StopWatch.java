@@ -12,11 +12,15 @@ public class StopWatch {
 	}
 	
 	public void start() {
-		this.start = System.currentTimeMillis();
+			this.start = System.nanoTime();		
 	}
 	
-	public void stop() {
-		long stop = System.currentTimeMillis();
-		System.out.println("Runtime: "+(stop-start)+" ms");
+	public void stop(String time) {
+		long stop = System.nanoTime();
+		if(time == "m")
+			System.out.println("Runtime: "+((stop-start)/1000000)+" ms");
+		else
+			System.out.println("Runtime: "+((stop-start))+" ns");
 	}
+	
 }

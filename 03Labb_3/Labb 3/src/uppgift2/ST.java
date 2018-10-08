@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Timer;
 
 /**
+ * README
  * An ordered symbol table for generic keys and values
  * 
  * @author danielduner
@@ -147,6 +148,7 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 
 	/**
 	 * returns the symbol table as a <string>
+	 * 
 	 * @return
 	 */
 	public String ToString() {
@@ -158,22 +160,28 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 
 		return str.toString();
 	}
+
 	/**
 	 * returns the <Value> array
+	 * 
 	 * @return
 	 */
 	public Value[] getValues() {
 		return this.values;
 	}
+
 	/**
 	 * returns the <Key> array
+	 * 
 	 * @return
 	 */
 	public Key[] getKeys() {
 		return this.keys;
 	}
+
 	/**
 	 * returns the Key of the pair with the largest value
+	 * 
 	 * @param max
 	 * @param lowest
 	 * @return
@@ -189,75 +197,46 @@ public class ST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 		}
 		return max;
 	}
+
 	/**
-	 * The frequency counter takes in a text file and prints out the most 
-	 * frequently acquired word and prints out the amount times it acquired
-	 * and how long time the search took in ms.
+	 * The frequency counter takes in a text file and prints out the most frequently
+	 * acquired word and prints out the amount times it acquired and how long time
+	 * the search took in ms.
+	 * 
 	 * @param args
 	 * @throws FileNotFoundException
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		Scanner sc;
-		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
-		PrintWriter writer = new PrintWriter("src/resources/text.txt","UTF-8");
 		int minlen = 1;
-		while(sc.hasNext()) {
-			String word = sc.next().toLowerCase();
-			writer.print(word+" ");
-		}
-		sc = new Scanner(new FileReader("src/resources/text.txt"));
+		sc = new Scanner(new FileReader("src/resources/parsedText.txt"));
 		StopWatch sw = new StopWatch();
 		// key-length cutoff
 		ST<String, Integer> st = new ST<String, Integer>(10);
-
+		int N = 10000;
 		sw.start();
-		while (sc.hasNext()) { // Build symbol table and count frequencies.
+//		while (sc.hasNext()) { // Build symbol table and count frequencies.
+		while (N>0) {
 			String word = sc.next();
+//			String word = sc.next().toLowerCase();
 			if (word.length() < minlen)
 				continue; // Ignore short keys.
 			if (!st.contains(word))
 				st.put(word, 1);
 			else
 				st.put(word, st.get(word) + 1);
+			N--;
 		}
 		// Find a key with the highest frequency count.
-		sw.stop();
+		System.out.println("Insert");
+		sw.stop("m");
+		sw.start();
+		st.get("the");
+		System.out.println("get \"the\"");
+		sw.stop("n");
 		String max = st.getMax("max", 0);
-		System.out.println("The most frequent word is \""+max + "\" and was used " + st.get(max)+" times");
-		
-//		sc = new Scanner(new FileReader("src/resources/Text.txt"));
-//		for (int i = 0; i < 1000; i++) {
-//			String key = sc.next();
-//			
-//			if(st.contains(key)) {
-//				st.put(key, (st.get(key).intValue()+1));
-//			} else {				
-//				st.put(key, 1);
-//			}
-//		}
-//		System.out.println(st.ToString());
+		System.out.println("The most frequent word is \"" + max + "\" and was used " + st.get(max) + " times");
 	}
-	}
-
-//	@SuppressWarnings({ "resource", "unchecked", "deprecation" })
-//	public static void main(String[] args) throws IOException {
-//
-//		ST<String, Integer> st = new ST<String, Integer>(10);
-//		Scanner sc;
-//		sc = new Scanner(new FileReader("src/resources/Text.txt"));
-//		for (int i = 0; i < 1000; i++) {
-//			String key = sc.next();
-//			
-//			if(st.contains(key)) {
-//				st.put(key, (st.get(key).intValue()+1));
-//			} else {				
-//				st.put(key, 1);
-//			}
-//		}
-//		System.out.println(st.ToString());
-//	}
-	
-
-//}
+}
